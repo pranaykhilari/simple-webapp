@@ -1,0 +1,42 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        $("form").submit(function (e) {
+            var contact_number = $('#id_contact_no').val()
+            $.ajax({
+                type: 'GET',
+                url: '/check_contact/',
+                async:false,
+                data: {
+                    'contact_number': contact_number
+                },
+                success: function (result) {
+                    if (result == 'True') {
+                        alert('success')
+                    }
+                    else {
+                        e.preventDefault()
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+
+{% extends "base.html" %}
+{% block content %}
+    <div class="parent">
+        <div class="center-div">
+            <form method="post" class="center-div" action="{% url 'profile' %}">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" onclick="return contactVerify()" value="Submit" class="submit-button">Submit
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

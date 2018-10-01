@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
+
+<div class="parent">
+<div class="center-div">
+    {% load i18n %}
+
+    {% block content %}
+        <h1 class="center-text">{% trans "Sign Up" %}</h1>
+
+        <form class="signup, center-div" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button type="submit" class="submit-button">{% trans "Sign Up" %}</button>
+        </form>
+
+        <p class="center-text">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>
+            .{% endblocktrans %}</p>
+    {% endblock %}
+
+</div>
+</div>
